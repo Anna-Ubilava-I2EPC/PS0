@@ -4,7 +4,7 @@ TODO:
 
 - [x] Start with drawSquare. Make it draw a correct square. Run npm start to see the output in output.html.
 
-- [ ] Implement chordLength. Run npm test and make sure the chordLength tests pass (turn green).
+- [x] Implement chordLength. Run npm test and make sure the chordLength tests pass (turn green).
 
 - [ ] Implement drawApproximateCircle using chordLength. Run npm start and visually check output.html.
 
