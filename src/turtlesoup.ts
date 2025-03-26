@@ -64,8 +64,8 @@ export function drawApproximateCircle(
  * @returns The distance between p1 and p2.
  */
 export function distance(p1: Point, p2: Point): number {
-  // TODO: Implement distance
-  return 0; // Placeholder
+  let distance = Math.sqrt((p2.x - p1.x) ** 2 + (p2.y - p1.y) ** 2);
+  return distance;
 }
 
 /**
