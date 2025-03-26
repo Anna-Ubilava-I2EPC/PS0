@@ -36,6 +36,7 @@ export function chordLength(radius: number, angleInDegrees: number): number {
 /**
  * Draws an approximate circle using the turtle.
  * Use your implementation of chordLength.
+ * Uses chords as the sides of the polygon that will be my approximate circle.
  * @param turtle The turtle to use.
  * @param radius The radius of the circle.
  * @param numSides The number of sides to approximate the circle with (e.g., 360 for a close approximation).
@@ -45,7 +46,17 @@ export function drawApproximateCircle(
   radius: number,
   numSides: number
 ): void {
-  // TODO: Implement drawApproximateCircle
+  // calculate the angle between the sides of the approcimate circle (polygon with numSides sides)
+  const angleBetweenSides = 360 / numSides;
+
+  // calculate the length of the sides/chords using the chordLength function.
+  const side = chordLength(radius, angleBetweenSides);
+
+  // Draw the circle approximation by drawing a chord for each angle.
+  for (let i = 0; i < numSides; i++) {
+    turtle.forward(side); // Move forward by the length of the side/chord
+    turtle.turn(angleBetweenSides); // Turn by the angle between each side
+  }
 }
 
 /**
@@ -157,13 +168,13 @@ export function main(): void {
   // Example Usage - Uncomment functions as you implement them
 
   // Draw a square
-  drawSquare(turtle, 100);
+  //drawSquare(turtle, 100);
 
   // Example chordLength calculation (for testing in console)
-  // console.log("Chord length for radius 5, angle 60 degrees:", chordLength(5, 60));
+  //console.log("Chord length for radius 5, angle 60 degrees:", chordLength(5, 60));
 
   // Draw an approximate circle
-  // drawApproximateCircle(turtle, 50, 360);
+  //drawApproximateCircle(turtle, 50, 360);
 
   // Example distance calculation (for testing in console)
   // const p1: Point = {x: 1, y: 2};
