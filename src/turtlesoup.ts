@@ -127,12 +127,37 @@ export function findPath(turtle: Turtle, points: Point[]): string[] {
  * @param turtle The turtle to use.
  */
 export function drawPersonalArt(turtle: Turtle): void {
-  // TODO: Implement drawPersonalArt
-  // Example - replace with your own art!
-  for (let i = 0; i < 6; i++) {
-    turtle.forward(50);
-    turtle.turn(60);
+  // Helper function to draw a single star
+  function drawStar(size: number, color: Color) {
+    turtle.color(color);
+    turtle.penDown(); // Ensure pen is down for drawing
+
+    // Draw 5-pointed star
+    for (let i = 0; i < 5; i++) {
+      turtle.forward(size);
+      turtle.turn(144); // 144 degrees for a 5-pointed star
+    }
   }
+
+  // Helper function to move turtle without drawing
+  function moveToNextStar(angle: number, distance: number) {
+    turtle.penUp();
+    turtle.turn(angle);
+    turtle.forward(distance);
+    turtle.turn(-angle);
+    turtle.penDown();
+  }
+
+  // Draw first star (red, medium size)
+  drawStar(-220, "red");
+
+  // Move to second star and draw
+  moveToNextStar(80, 100);
+  drawStar(30, "blue");
+
+  // Move to third star and draw
+  moveToNextStar(-45, 150);
+  drawStar(70, "magenta");
 }
 
 function generateHTML(
@@ -217,16 +242,16 @@ export function main(): void {
   // console.log("Distance between p1 and p2:", distance(p1, p2));
 
   // Example findPath (conceptual - prints path to console)
-  const pointsToVisit: Point[] = [
-    { x: 20, y: 20 },
-    { x: 80, y: 20 },
-    { x: 80, y: 80 },
-  ];
-  const pathInstructions = findPath(turtle, pointsToVisit);
-  console.log("Path instructions:", pathInstructions);
+  // const pointsToVisit: Point[] = [
+  //   { x: 20, y: 20 },
+  //   { x: 80, y: 20 },
+  //   { x: 80, y: 80 },
+  // ];
+  // const pathInstructions = findPath(turtle, pointsToVisit);
+  // console.log("Path instructions:", pathInstructions);
 
   // Draw personal art
-  // drawPersonalArt(turtle);
+  //drawPersonalArt(turtle);
 
   const htmlContent = generateHTML((turtle as SimpleTurtle).getPath()); // Cast to access getPath
   saveHTMLToFile(htmlContent);
