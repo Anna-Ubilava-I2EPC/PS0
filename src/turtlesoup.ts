@@ -78,8 +78,45 @@ export function distance(p1: Point, p2: Point): number {
  *          The function primarily needs to *calculate* the path conceptually.
  */
 export function findPath(turtle: Turtle, points: Point[]): string[] {
-  // TODO: Implement findPath (conceptually, you don't need to *execute* the path here)
-  return []; // Placeholder
+  const instructions: string[] = [];
+
+  let currPosition = turtle.getPosition(); // initially (0,0)
+  let currHeading = turtle.getHeading(); // initially 0
+
+  for (const target of points) {
+    const deltaX = target.x - currPosition.x;
+    const deltaY = target.y - currPosition.y;
+
+    // Calculate the required heading
+    // calculate the angle in radians and convert it to degrees
+    let targetHeading = (Math.atan2(deltaY, deltaX) * 180) / Math.PI;
+    if (targetHeading < 0) {
+      targetHeading += 360; // Normalize to [0, 360); ensures heading is always positive
+    }
+
+    // find the shortest turn angle
+    let turnAngle = targetHeading - currHeading;
+    if (turnAngle > 180) {
+      turnAngle -= 360; // Rotate counter-clockwise
+    } else if (turnAngle < -180) {
+      turnAngle += 360; // Rotate clockwise
+    }
+
+    // Add turn instruction
+    if (turnAngle !== 0) {
+      instructions.push(`turn ${turnAngle}`);
+      currHeading = targetHeading; // Update heading after turning
+    }
+
+    // Compute movement distance using the distance function
+    const moveDistance = distance(currPosition, target);
+    if (moveDistance > 0) {
+      instructions.push(`forward ${moveDistance}`);
+      currPosition = target; // Update position after moving
+    }
+  }
+
+  return instructions;
 }
 
 /**
@@ -180,9 +217,13 @@ export function main(): void {
   // console.log("Distance between p1 and p2:", distance(p1, p2));
 
   // Example findPath (conceptual - prints path to console)
-  // const pointsToVisit: Point[] = [{x: 20, y: 20}, {x: 80, y: 20}, {x: 80, y: 80}];
-  // const pathInstructions = findPath(turtle, pointsToVisit);
-  // console.log("Path instructions:", pathInstructions);
+  const pointsToVisit: Point[] = [
+    { x: 20, y: 20 },
+    { x: 80, y: 20 },
+    { x: 80, y: 80 },
+  ];
+  const pathInstructions = findPath(turtle, pointsToVisit);
+  console.log("Path instructions:", pathInstructions);
 
   // Draw personal art
   // drawPersonalArt(turtle);
