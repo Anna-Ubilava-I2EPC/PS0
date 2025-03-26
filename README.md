@@ -8,7 +8,7 @@ TODO:
 
 - [x] Implement drawApproximateCircle using chordLength. Run npm start and visually check output.html.
 
-- [ ] Implement distance. Run npm test and make sure the distance tests pass.
+- [x] Implement distance. Run npm test and make sure the distance tests pass.
 
 - [ ] Implement findPath. For Problem Set 0, focus on the logic of finding a path. The current test is very basic. You might want to add more tests or think about how you would conceptually verify the path.
 
